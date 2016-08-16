@@ -10,15 +10,14 @@ public class CountriesReadAndWrite {
 	static ArrayList<String> countriesToBeAdded = new ArrayList<>();
 	static String country = null;
 
-	static Path ourNewPath = Paths
-			.get("\\Users\\admin\\rolandsshinnynewworkspace\\CountriesApp\\src\\countriesProject\\countriesProject.txt");
+	static Path ourNewPath = Paths.get(
+			"\\Users\\admin\\rolandsshinnynewworkspace\\CountriesApp\\src\\countriesProject\\countriesProject.txt");
 	static File aNewCountry = ourNewPath.toFile();
 	static Scanner keyboard = new Scanner(System.in);
 
-	public static void write() {
+	public static String write() {
 		boolean countryOptions = true;
-		
-		
+
 		while (countryOptions) {
 			try
 
@@ -27,7 +26,7 @@ public class CountriesReadAndWrite {
 				country = keyboard.nextLine();
 
 				out.println(country);
-				countriesToBeAdded.add(country);
+			//	countriesArrayList();
 
 				System.out.println("Would you like to add another Country?");
 				System.out.println("Please Enter Yes or No.");
@@ -54,6 +53,13 @@ public class CountriesReadAndWrite {
 				e.printStackTrace();
 			}
 		}
+		return country;
+	}
+
+	private static <E> ArrayList<E> countriesArrayList() {
+		
+		countriesToBeAdded.add(country);
+		return countriesArrayList();
 	}
 
 	public static void read() {
@@ -68,32 +74,34 @@ public class CountriesReadAndWrite {
 			ex.printStackTrace();
 		}
 	}
-	public static void delete(){
+
+	public static void delete() {
 		String lineToRemove = null;
 		String currentLine;
-		
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(aNewCountry));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(aNewCountry));
-		while((currentLine = reader.readLine()) != null) {
-		    // trim newline when comparing with lineToRemove
-			lineToRemove = keyboard.nextLine();
-			
-	//		out.println(lineToRemove);
-			
-		    String trimmedLine = currentLine.trim();
-		    
-		    if(trimmedLine.equals(lineToRemove)) continue;
-		    writer.write(currentLine + System.getProperty("line.separator"));
-		}
-		
-		}catch (IOException ex) {
-				ex.printStackTrace();
+			while ((currentLine = reader.readLine()) != null) {
+				// trim newline when comparing with lineToRemove
+				lineToRemove = keyboard.nextLine();
+
+				// out.println(lineToRemove);
+
+				String trimmedLine = currentLine.trim();
+
+				if (trimmedLine.equals(lineToRemove))
+					continue;
+				writer.write(currentLine + System.getProperty("line.separator"));
 			}
-//		writer.close(); 
-//		reader.close(); 
-//		boolean successful = tempFile.renameTo(inputFile);
-	
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		// writer.close();
+		// reader.close();
+		// boolean successful = tempFile.renameTo(inputFile);
+
 	}
-	
+
 }
